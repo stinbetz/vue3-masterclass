@@ -7,5 +7,6 @@
     {
       "path": "./tsconfig.app.json"
     }
-  ]
+  ],
+  "types": ["unplugin-vue-router/client"]
 }
