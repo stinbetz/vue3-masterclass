@@ -19,7 +19,9 @@ export default defineConfigWithVueTs(
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
   skipFormatting,
-  rules: {
-    'vue/multi-word-component-names': 0,
-  }
+  {
+    rules: {
+      'vue/multi-word-component-names': 0,
+    },
+  },
 )
