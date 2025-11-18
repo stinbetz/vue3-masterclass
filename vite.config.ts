@@ -8,6 +8,10 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwind from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
 
+import AutoImport from 'unplugin-auto-import/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
+import Components from 'unplugin-vue-components/vite'
+
 // https://vite.dev/config/
 export default defineConfig({
   css: {
@@ -25,6 +29,20 @@ export default defineConfig({
       },
     }),
     vueDevTools(),
+    AutoImport({
+      include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md/],
+      imports: [
+        'vue',
+        VueRouterAutoImports,
+        {
+          pinia: ['defineStore', 'storeToRefs', 'acceptHMRUpdate'],
+        },
+      ],
+      dts: true,
+      viteOptimizeDeps: true,
+      dirs: ['src/stores'],
+    }),
+    Components({}),
   ],
   resolve: {
     alias: {
