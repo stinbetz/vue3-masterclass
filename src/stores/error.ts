@@ -3,6 +3,7 @@ import type { PostgrestError } from '@supabase/supabase-js'
 
 export const useErrorStore = defineStore('error-store', () => {
   const activeError = ref<null | CustomError | ExtendedPostgrestError>(null)
+  const isCustomError = ref(false)
 
   const setError = ({
     error,
@@ -12,6 +13,7 @@ export const useErrorStore = defineStore('error-store', () => {
     customCode?: number
   }) => {
     if (typeof error === 'string') {
+      isCustomError.value = true
       activeError.value = Error(error)
       activeError.value.customCode = customCode || 500
       return
@@ -26,12 +28,14 @@ export const useErrorStore = defineStore('error-store', () => {
 
   const clearError = () => {
     activeError.value = null
+    isCustomError.value = false
   }
 
   return {
     activeError,
     setError,
     clearError,
+    isCustomError,
   }
 })
 
